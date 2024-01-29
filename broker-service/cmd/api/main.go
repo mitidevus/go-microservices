@@ -6,10 +6,9 @@ import (
 	"net/http"
 )
 
-const webPort = "3000"
+const webPort = "80"
 
-type Config struct {
-}
+type Config struct{}
 
 func main() {
 	app := Config{}
