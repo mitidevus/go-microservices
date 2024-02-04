@@ -14,8 +14,8 @@ type RequestPayload struct {
 }
 
 type LogPayload struct {
-	Name string `json:name`
-	Data string `json:data`
+	Name string `json:"name"`
+	Data string `json:"data"`
 }
 
 type AuthPayload struct {

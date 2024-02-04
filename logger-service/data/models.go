@@ -26,11 +26,11 @@ type Models struct {
 }
 
 type LogEntry struct {
-	ID        string    `bson:"_id, omitempty" json:"id,omitempty"`
+	ID        string    `bson:"_id,omitempty" json:"id,omitempty"`
 	Name      string    `bson:"name" json:"name"`
 	Data      string    `bson:"data" json:"data"`
 	CreatedAt time.Time `bson:"created_at" json:"created_at"`
-	UpdateAt  time.Time `bson:"updated_at" json:"updated_at"`
+	UpdatedAt time.Time `bson:"updated_at" json:"updated_at"`
 }
 
 func (l *LogEntry) Insert(entry LogEntry) error {
@@ -40,7 +40,7 @@ func (l *LogEntry) Insert(entry LogEntry) error {
 		Name:      entry.Name,
 		Data:      entry.Data,
 		CreatedAt: time.Now(),
-		UpdateAt:  time.Now(),
+		UpdatedAt: time.Now(),
 	})
 	if err != nil {
 		log.Println("Error inserting into logs:", err)
@@ -73,7 +73,7 @@ func (l *LogEntry) All() ([]*LogEntry, error) {
 
 		err := cursor.Decode(&item)
 		if err != nil {
-			log.Print("Error decoding log into slices:", err)
+			log.Print("Error decoding log into slice:", err)
 			return nil, err
 		} else {
 			logs = append(logs, &item)
@@ -131,7 +131,7 @@ func (l *LogEntry) Update() (*mongo.UpdateResult, error) {
 
 	result, err := collection.UpdateOne(
 		ctx,
-		bson.M{"_id": docID}, // filter
+		bson.M{"_id": docID},
 		bson.D{
 			{"$set", bson.D{
 				{"name", l.Name},
